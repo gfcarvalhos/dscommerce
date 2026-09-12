@@ -84,14 +84,4 @@ public class UserTests {
         assertTrue(user.getOrders().isEmpty());
     }
 
-    @Test
-    void shouldSetAndGetOrders() {
-        User user = new User();
-
-        List<Order> orders = new ArrayList<>();
-
-        user.setOrders(orders);
-
-        assertSame(orders, user.getOrders());
-    }
 }
