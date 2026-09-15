@@ -1,0 +1,26 @@
+package com.gabrielsilva.dscommerce.controllers;
+
+
+import com.gabrielsilva.dscommerce.dto.ProductDTO;
+import com.gabrielsilva.dscommerce.entities.Product;
+import com.gabrielsilva.dscommerce.services.ProductServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping(value = "/products")
+public class ProductController {
+
+    @Autowired
+    private ProductServices service;
+
+    @GetMapping(value = "/{id}")
+    public ProductDTO findById(@PathVariable Long id) {
+        return service.findById(id);
+    }
+}
