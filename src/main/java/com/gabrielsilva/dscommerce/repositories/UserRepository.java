@@ -19,5 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			INNER JOIN tb_role ON tb_role.id = tb_user_role.role_id
 			WHERE tb_user.email = :email
 		""")
-    List<UserDetailsProjection> searchUserAndRoleByEmail(String email);
+    List<UserDetailsProjection> searchUserAndRolesByEmail(String email);
 }
