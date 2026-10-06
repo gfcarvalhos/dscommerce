@@ -3,6 +3,7 @@ package com.gabrielsilva.dscommerce.controllers.handlers;
 import com.gabrielsilva.dscommerce.dto.CustomError;
 import com.gabrielsilva.dscommerce.dto.ValidationError;
 import com.gabrielsilva.dscommerce.services.exceptions.DatabaseException;
+import com.gabrielsilva.dscommerce.services.exceptions.ForbiddenException;
 import com.gabrielsilva.dscommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,13 @@ public class ControllerExceptionHandler {
         for (FieldError f: e.getBindingResult().getFieldErrors()) {
             err.addError(f.getField(), f.getDefaultMessage());
         }
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomError> forbiddenException(ForbiddenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        CustomError err = new CustomError(Instant.now(), request.getRequestURI(), e.getMessage(), status.value());
         return ResponseEntity.status(status).body(err);
     }
 }
