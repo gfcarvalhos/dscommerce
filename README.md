@@ -48,7 +48,7 @@ Após informar credenciais válidas, o sistema retorna um **token de acesso**, p
 
 Usuários não autenticados podem realizar seu cadastro no sistema.
 
-Todo usuário cadastrado é considerado **cliente por padrão**. :chatgpt-content-reference{index="6"}
+Todo usuário cadastrado é considerado **cliente por padrão**.
 
 ### Carrinho de compras
 
