@@ -2,6 +2,7 @@ package com.gabrielsilva.dscommerce.controllers;
 
 
 import com.gabrielsilva.dscommerce.dto.ProductDTO;
+import com.gabrielsilva.dscommerce.dto.ProductMinDTO;
 import com.gabrielsilva.dscommerce.entities.Product;
 import com.gabrielsilva.dscommerce.services.ProductServices;
 import jakarta.validation.Valid;
@@ -32,10 +33,10 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(
+    public ResponseEntity<Page<ProductMinDTO>> findAll(
             @RequestParam(name = "name", defaultValue = "") String name,
             Pageable pageable) {
-        Page<ProductDTO> dto = service.findAll(name, pageable);
+        Page<ProductMinDTO> dto = service.findAll(name, pageable);
         return ResponseEntity.ok(dto);
     }
 
