@@ -1,5 +1,6 @@
 package com.gabrielsilva.dscommerce.tests;
 
+import com.gabrielsilva.dscommerce.dto.ProductDTO;
 import com.gabrielsilva.dscommerce.entities.Category;
 import com.gabrielsilva.dscommerce.entities.Product;
 
@@ -18,6 +19,12 @@ public class ProductFactory {
         product.setName(name);
 
         return product;
+    }
+
+    public static ProductDTO createProductDTO() {
+        Product product = createProduct();
+
+        return new ProductDTO(product);
     }
 
 }
