@@ -43,7 +43,7 @@ public class UserService  implements UserDetailsService {
         return user;
     }
 
-    protected User autheticated() {
+    protected User authenticated() {
         try {
             String username = customUserUtil.getLoggedUsername();
             return repository.findByEmail(username).get();
@@ -54,7 +54,7 @@ public class UserService  implements UserDetailsService {
 
     @Transactional(readOnly = true)
     public UserDTO getMe() {
-        User user = autheticated();
+        User user = authenticated();
         return new UserDTO(user);
     }
 }
