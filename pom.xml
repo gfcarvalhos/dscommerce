@@ -109,6 +109,8 @@
                         <exclude>com/gabrielsilva/dscommerce/dto/**</exclude>
                         <exclude>com/gabrielsilva/dscommerce/controllers/handlers/**</exclude>
                         <exclude>com/gabrielsilva/dscommerce/services/exceptions/**</exclude>
+                        <exclude>com/gabrielsilva/dscommerce/utils/**</exclude>
+                        <exclude>com/gabrielsilva/dscommerce/controllers/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
