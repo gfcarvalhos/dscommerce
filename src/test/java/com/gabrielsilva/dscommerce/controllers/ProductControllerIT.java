@@ -37,6 +37,7 @@ public class ProductControllerIT {
     private String clientUsername, clientPassword, adminUsername, adminPassword;
     private String productName;
     private String adminToken, clientToken, invalidToken;
+    private Long existingId, nonExistingId;
 
     private ProductDTO productDTO;
     private Product product;
@@ -57,6 +58,9 @@ public class ProductControllerIT {
 
         productDTO = ProductFactory.createProductDTO();
         product = ProductFactory.createProduct();
+
+        existingId = 1L;
+        nonExistingId = 100L;
     }
 
     @Test
@@ -215,6 +219,46 @@ public class ProductControllerIT {
                         .header("Authorization", "Bearer " + invalidToken)
                         .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                         .content(jsonBody)
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON)));
+
+        result.andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void deleteShouldDoNothingWhenAdminLoggedAndIdExists() throws Exception {
+        ResultActions result = mockMvc
+                .perform(delete("/products/{existingId}", existingId)
+                        .header("Authorization", "Bearer " + adminToken)
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON)));
+
+        result.andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void deleteShouldDoNothingWhenAdminLoggedAndIdDOesNotExist() throws Exception {
+        ResultActions result = mockMvc
+                .perform(delete("/products/{existingId}", nonExistingId)
+                        .header("Authorization", "Bearer " + adminToken)
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON)));
+
+        result.andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void deleteShouldReturnForbiddenWhenClientLogged() throws Exception {
+        ResultActions result = mockMvc
+                .perform(delete("/products/{existingId}", existingId)
+                        .header("Authorization", "Bearer " + clientToken)
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON)));
+
+        result.andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void deleteShouldReturnUnauthorizedWhenInvalidToken() throws Exception {
+        ResultActions result = mockMvc
+                .perform(delete("/products/{existingId}", existingId)
+                        .header("Authorization", "Bearer " + invalidToken)
                         .accept(String.valueOf(MediaType.APPLICATION_JSON)));
 
         result.andExpect(status().isUnauthorized());
